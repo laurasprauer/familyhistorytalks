@@ -82,6 +82,6 @@
     "test:update": "yarn test --updateSnapshot",
     "test": "jest --silent",
     "eslint": "eslint --cache \"src/**/*.{js,jsx}\"",
-    "eslint:fix": "eslint --fix \"src/**/*.{js,jsx}\"",
+    "eslint:fix": "eslint --fix \"src/**/*.{js,jsx}\""
   }
 }
