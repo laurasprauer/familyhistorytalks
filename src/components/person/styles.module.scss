@@ -1,0 +1,113 @@
+.person {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  img {
+    width: 100%;
+  }
+
+  &.header {
+    text-align: left;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .image {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    flex-shrink: 0;
+    margin-right: 40px;
+    margin-bottom: 30px;
+    transition: background-image var(--transition);
+  }
+
+  .title {
+    width: calc(100% - 290px);
+    margin-bottom: 30px;
+  }
+
+  @include media($small, down) {
+    .image {
+      height: 400px;
+      width: 100%;
+      border-radius: 3px;
+      margin-right: 0;
+    }
+    .title {
+      width: 100%;
+      margin-bottom: 0px;
+    }
+  }
+
+  @include media(500px, down) {
+    .image {
+      height: 300px;
+    }
+  }
+
+  h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin-bottom: 0px;
+    text-align: left;
+  }
+
+  h2 {
+    font-family: var(--font-saira);
+    font-size: 36px;
+    line-height: 46px;
+    margin: 40px 0 10px 0;
+    letter-spacing: normal;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  h3 {
+    text-align: left;
+    margin: 10px 0 -15px 0;
+  }
+
+  h4 {
+    text-align: left;
+    margin: 10px 0 -15px 0;
+    color: var(--color-dark-gray);
+  }
+
+  p {
+    margin: 20px 0;
+    text-align: left;
+  }
+
+  img {
+    max-width: 700px;
+    margin: 40px auto;
+    display: block;
+  }
+
+  span {
+    display: inline-block;
+    max-width: 700px;
+    position: relative;
+    top: -20px;
+    color: var(--color-dark-gray);
+    text-align: center;
+    background-color: var(--color-light-gray);
+    border-radius: 3px;
+    padding: 7px 20px;
+    font-size: 14px;
+    line-height: 24px;
+
+    &.date {
+      background-color: transparent;
+      text-align: left;
+      padding: 0;
+      top: 0;
+    }
+  }
+}

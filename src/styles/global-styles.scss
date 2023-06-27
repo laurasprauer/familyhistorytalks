@@ -1,0 +1,91 @@
+@use 'variables' as *;
+@use './mixins/font' as *;
+@use './mixins/layout' as *;
+@use './mixins/media' as *;
+@use './mixins/reset' as *;
+@use './mixins/support' as *;
+@use './mixins/typography' as *;
+
+@forward './mixins/font';
+@forward './mixins/layout';
+@forward './mixins/media';
+@forward './mixins/reset';
+@forward './mixins/support';
+@forward './mixins/typography';
+
+// --------------------------------------------------------
+
+@mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @include font-smoothing;
+  margin: 0;
+  padding: 0;
+  color: var(--color-black);
+  font-family: var(--font-lato);
+  font-size: 16px;
+  line-height: 26px;
+  background-color: var(--color-white);
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+h1 {
+  transition: color var(--transition);
+  color: var(--color-black);
+  font-family: var(--font-saira);
+  font-size: 30px;
+  line-height: 36px;
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  transition: color var(--transition);
+  color: var(--color-black);
+  font-family: var(--font-lato);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin: 5px 0;
+}
+
+p {
+  transition: color var(--transition);
+  color: var(--color-black);
+  font-family: var(--font-lato);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  margin: 5px 0;
+}
+
+a {
+  box-shadow: inset 0 -2px 0 0 var(--color-teal);
+  color: var(--color-black);
+  font-family: var(--font-lato);
+  font-weight: bold;
+  text-decoration: none;
+  transition: box-shadow var(--transition);
+  @include hover {
+    box-shadow: inset 0 -16px 0 0 var(--color-teal);
+  }
+}
+
+button {
+  @include reset-button;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}

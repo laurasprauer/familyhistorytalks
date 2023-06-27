@@ -1,0 +1,37 @@
+@use './media' as *;
+
+@mixin container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  @include media($small-lowest, down) {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+@mixin scrollbar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #9e42f4;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #28ffb2;
+  }
+}

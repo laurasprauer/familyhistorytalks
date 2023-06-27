@@ -1,0 +1,41 @@
+.container {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+
+  .wrapper {
+    padding-top: 180px;
+    padding-bottom: 180px;
+    z-index: 2;
+    position: relative;
+    @include container;
+  }
+}
+
+.fourOhFour {
+  h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin-bottom: 20px;
+  }
+  h1,
+  h2 {
+    text-align: center;
+    color: var(--color-white);
+  }
+  p {
+    text-align: center;
+    margin: 20px auto 0 auto;
+    max-width: 800px;
+    color: var(--color-white);
+  }
+
+  > div {
+    background-color: var(--color-black);
+    margin-bottom: 40px;
+    padding: 60px 40px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
