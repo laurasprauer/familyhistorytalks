@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Person from '@components/person';
+import AddResource from '@components/addResource';
 import Link from '@components/link';
 
 import { Helmet } from 'react-helmet';
@@ -63,6 +64,7 @@ export const Container = ({ type, slug, data }) => {
           )}
 
           {type === 'person' && <Person data={data} />}
+          {type === 'addResource' && <AddResource />}
 
           {type === '404' && (
             <div className={styles.fourOhFour}>

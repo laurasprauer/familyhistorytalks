@@ -62,7 +62,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     context: {
       slug: '/',
       type: 'home',
-      data: allPersons,
+    },
+  });
+
+  createPage({
+    path: '/add-resource',
+    component: pageTemplate,
+    context: {
+      slug: '/add-resource',
+      type: 'addResource',
     },
   });
 };

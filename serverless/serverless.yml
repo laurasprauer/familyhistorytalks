@@ -24,10 +24,8 @@ provider:
   name: aws
   deploymentMethod: direct
   runtime: nodejs18.x
-
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+  region: us-east-2
+  stage: production
 
 # you can add statements to the Lambda function's IAM Role here
 #  iam:

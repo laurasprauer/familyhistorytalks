@@ -1,18 +1,17 @@
 // Google Font
-@import url('https://fonts.googleapis.com/css?family=Saira+Condensed:500,700');
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 // Font Variables
 $font: (
   '--font-fallback': system-ui,
-  '--font-lato': (
-    'Lato',
+  '--font-roboto': (
+    'Roboto',
     sans-serif,
     var(--font-fallback),
   ),
-  '--font-saira': (
-    'Saira Condensed',
-    sans-serif,
+  '--font-roboto-slab': (
+    'Roboto Slab',
+    serif,
     var(--font-fallback),
   ),
 );
