@@ -8,7 +8,8 @@ export const AddResource = () => {
   const [title, setTitle] = useState();
   const [startYear, setStartYear] = useState();
   const [endYear, setEndYear] = useState();
-  const [content, setContent] = useState();
+  const [transcript, setTranscript] = useState();
+  const [file, setFile] = useState(null);
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -22,8 +23,10 @@ export const AddResource = () => {
       setStartYear(e.target.value);
     } else if (e.target.id === 'endYear') {
       setEndYear(e.target.value);
-    } else if (e.target.id === 'content') {
-      setContent(e.target.value);
+    } else if (e.target.id === 'transcript') {
+      setTranscript(e.target.value);
+    } else if (e.target.id === 'file') {
+      setFile(e.target.files[0]);
     }
   };
 
@@ -36,12 +39,14 @@ export const AddResource = () => {
     const titleEl = document.getElementById('title').value;
     const startYearEl = document.getElementById('startYear').value;
     const endYearEl = document.getElementById('endYear').value;
-    const contentEl = document.getElementById('content').value;
+    const transcriptEl = document.getElementById('transcript').value;
+    const fileEl = document.getElementById('file').files[0];
 
     const titleValue = title ? title : titleEl;
     const startYearValue = startYear ? startYear : startYearEl;
     const endYearValue = endYear ? endYear : endYearEl;
-    const contentValue = content ? content : contentEl;
+    const transcriptValue = transcript ? transcript : transcriptEl;
+    const fileValue = file ? file : fileEl;
 
     if (!titleValue || titleValue === '') {
       errors.push('resource title is required');
@@ -52,28 +57,32 @@ export const AddResource = () => {
     if (!endYearValue) {
       errors.push('resource end year is required');
     }
-    if (!contentValue || contentValue === '') {
-      errors.push('a transcript of resource content is required');
+    if (!transcriptValue || transcriptValue === '') {
+      errors.push('resource transcript is required');
+    }
+    if (!fileValue) {
+      errors.push('pdf of resource is required');
     }
 
     if (errors.length > 0) return setError(errors);
 
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append('title', titleValue);
-    formData.append('startYear', startYearValue);
-    formData.append('endYear', endYearValue);
-    formData.append('content', contentValue);
-
-    let url = ''; // need to hit aws lambda function
+    // need to hit aws lambda function
+    let url = '';
 
     return fetch(url, {
       method: 'POST',
-      body: formData,
+      body: {
+        title: titleValue,
+        startYear: startYearValue,
+        endYear: endYearValue,
+        transcript: transcriptValue,
+        file: fileValue,
+      },
     })
       .then((response) => {
-        console.log(response);
+        // response needs to return id and link
         setLoading(false);
         setSuccess(true);
       })
@@ -85,15 +94,13 @@ export const AddResource = () => {
 
   if (success) {
     return (
-      <div className={`${styles.success}`}>
-        <h1>Thanks!</h1>
+      <div className={`${styles.addResource}`}>
+        <h1>Add Resources</h1>
+        <p>Your resource has been uploaded!</p>
+        <p>ID: --id--</p>
+        <p>Link: --link--</p>
         <p>
-          I received your message and will get back to you as soon as I can.
-        </p>
-        <p>
-          <Link to="/" darkmode={!darkmode}>
-            Return to Homepage
-          </Link>
+          <Link to="/">Return to Homepage</Link>
         </p>
       </div>
     );
@@ -110,7 +117,6 @@ export const AddResource = () => {
             name="title"
             id="title"
             onChange={saveInput}
-            value={title}
             placeholder="Title"
           />
         </label>
@@ -121,7 +127,6 @@ export const AddResource = () => {
             name="startYear"
             id="startYear"
             onChange={saveInput}
-            value={startYear}
             placeholder="1992"
           />
         </label>
@@ -132,19 +137,26 @@ export const AddResource = () => {
             name="endYear"
             id="endYear"
             onChange={saveInput}
-            value={endYear}
             placeholder="1994"
           />
         </label>
         <label>
           Transcript of Content
           <textarea
-            type="number"
-            name="content"
-            id="content"
+            name="transcript"
+            id="transcript"
             onChange={saveInput}
-            value={content}
             placeholder="Copy and paste all text in your pdf resource here."
+          />
+        </label>
+        <label>
+          Upload your resource as a PDF
+          <input
+            type="file"
+            id="file"
+            name="file"
+            accept="application/pdf"
+            onChange={saveInput}
           />
         </label>
         <input type="submit" value="Upload Resource" disabled={loading} />
