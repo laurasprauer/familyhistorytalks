@@ -14,6 +14,7 @@ export const pageQuery = graphql`
   query Person($slug: String!) {
     contentfulPerson(slug: { eq: $slug }) {
       name
+      surname
       slug
       body {
         childMarkdownRemark {
@@ -23,6 +24,59 @@ export const pageQuery = graphql`
       description {
         childMarkdownRemark {
           html
+        }
+      }
+      birthDay
+      birthMonth
+      birthYear
+      deathDay
+      deathMonth
+      deathYear
+      gender
+      mother {
+        birthYear
+        deathYear
+        name
+        gender
+        isLive
+        slug
+        surname
+      }
+      father {
+        birthYear
+        deathYear
+        name
+        gender
+        isLive
+        slug
+        surname
+      }
+      childrenOfPerson {
+        birthYear
+        deathYear
+        name
+        gender
+        isLive
+        slug
+        surname
+        gender
+        mother {
+          birthYear
+          deathYear
+          name
+          gender
+          isLive
+          slug
+          surname
+        }
+        father {
+          birthYear
+          deathYear
+          name
+          gender
+          isLive
+          slug
+          surname
         }
       }
     }

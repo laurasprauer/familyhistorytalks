@@ -44,6 +44,21 @@ module.exports = {
     'gatsby-plugin-image',
     'gatsby-plugin-gatsby-cloud',
     {
+      resolve: 'gatsby-plugin-contentful-optional-fields',
+      options: {
+        optionalFields: {
+          ContentfulPerson: {
+            birthDay: 'Int',
+            birthMonth: 'String',
+            birthYear: 'String',
+            deathDay: 'Int',
+            deathMonth: 'String',
+            deathYear: 'String',
+          },
+        },
+      },
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         icon: 'src/assets/images/favicon.png',

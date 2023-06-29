@@ -11,7 +11,7 @@
   textarea {
     background-color: var(--color-white);
     border: 0;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     color: var(--color-black);
     font-family: var(--font-roboto);
     font-size: 16px;
@@ -36,7 +36,7 @@
     color: var(--color-white);
     border: none;
     outline: none;
-    transition: background-color 0.3s;
+    transition: background-color var(--transition);
     cursor: pointer;
     &:hover,
     &:focus {

@@ -6637,9 +6637,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.431:
-  version "1.4.443"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.443.tgz#fa7e866b2ba3684259c8d373ab22ddd0e31d1a83"
-  integrity sha512-QG+DKVaD7OkcCJ/0x/IHdVEcwU7cak9Vr9dXCNp7G9ojBZQWtwtRV77CBOrU49jsKygedFcNc/IHUrGljKV2Gw==
+  version "1.4.445"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.445.tgz#058d2c5f3a2981ab1a37440f5a5e42d15672aa6d"
+  integrity sha512-++DB+9VK8SBJwC+X1zlMfJ1tMA3F0ipi39GdEp+x3cV2TyBihqAgad8cNMWtLDEkbH39nlDQP7PfGrDr3Dr7HA==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -8235,6 +8235,11 @@ gatsby-parcel-config@0.16.0:
     "@parcel/runtime-js" "2.6.2"
     "@parcel/transformer-js" "2.6.2"
     "@parcel/transformer-json" "2.6.2"
+
+gatsby-plugin-contentful-optional-fields@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-contentful-optional-fields/-/gatsby-plugin-contentful-optional-fields-2.2.2.tgz#9ed81e7e47f13c0a014b04ed06bd3c82ce32df7e"
+  integrity sha512-ywMy04iFM6h13vky3//Gi53Xkp9LxK+Ne123Sl2hChgaEB2KAr7Zt2zUZrH2qiYM7DAvwLKSIU4273L2DjjJow==
 
 gatsby-plugin-gatsby-cloud@^4.13.0:
   version "4.25.0"

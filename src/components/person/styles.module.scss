@@ -1,113 +1,152 @@
 .person {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
   text-align: center;
-  img {
-    width: 100%;
-  }
+  display: flex;
 
-  &.header {
-    text-align: left;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .image {
-    height: 250px;
-    width: 250px;
-    border-radius: 50%;
-    background-position: center;
-    background-size: cover;
-    flex-shrink: 0;
-    margin-right: 40px;
-    margin-bottom: 30px;
-    transition: background-image var(--transition);
-  }
-
-  .title {
-    width: calc(100% - 290px);
-    margin-bottom: 30px;
-  }
-
-  @include media($small, down) {
-    .image {
-      height: 400px;
-      width: 100%;
-      border-radius: 3px;
-      margin-right: 0;
-    }
-    .title {
-      width: 100%;
-      margin-bottom: 0px;
-    }
-  }
-
-  @include media(500px, down) {
-    .image {
-      height: 300px;
-    }
-  }
-
-  h1 {
-    font-size: 50px;
-    line-height: 60px;
-    margin-bottom: 0px;
-    text-align: left;
-  }
-
-  h2 {
-    font-family: var(--font-roboto-slab);
-    font-size: 36px;
-    line-height: 46px;
-    margin: 40px 0 10px 0;
-    letter-spacing: normal;
-    text-transform: uppercase;
-    text-align: left;
-  }
-
-  h3 {
-    text-align: left;
-    margin: 10px 0 -15px 0;
-  }
-
-  h4 {
-    text-align: left;
-    margin: 10px 0 -15px 0;
-    color: var(--color-dark-gray);
-  }
-
-  p {
-    margin: 20px 0;
-    text-align: left;
-  }
-
-  img {
-    max-width: 700px;
-    margin: 40px auto;
+  @include media($small-highest, down) {
     display: block;
   }
 
-  span {
-    display: inline-block;
-    max-width: 700px;
-    position: relative;
-    top: -20px;
-    color: var(--color-dark-gray);
-    text-align: center;
-    background-color: var(--color-light-gray);
-    border-radius: 3px;
-    padding: 7px 20px;
-    font-size: 14px;
-    line-height: 24px;
-
-    &.date {
-      background-color: transparent;
+  .sidebar {
+    h1,
+    h2,
+    h3 {
+      margin-bottom: 0px;
       text-align: left;
+    }
+    p {
+      text-align: left;
+      margin: 12px 0;
+    }
+    min-width: 420px;
+
+    @include media($medium-lowest, down) {
+      min-width: 300px;
+    }
+
+    @include media($small-highest, down) {
+      min-width: auto;
+    }
+
+    h2 {
+      margin-top: 32px;
+    }
+  }
+
+  .content {
+    padding-left: 60px;
+    h1,
+    h2,
+    h3 {
+      margin-bottom: -5px;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    p {
+      margin: 16px 0;
+      text-align: left;
+    }
+
+    @include media($small-highest, down) {
+      padding-left: 0px;
+    }
+  }
+
+  .family {
+    background-color: var(--color-extra-extra-light-gray);
+    border-radius: var(--border-radius);
+    margin-top: 8px;
+
+    .name {
+      color: var(--color-black);
+      &.self {
+        color: var(--color-blue);
+        font-weight: 700;
+      }
+      &.spouse {
+        color: var(--color-light-gray);
+      }
+    }
+
+    .dates,
+    .relation {
+      font-size: 12px;
+      line-height: 22px;
+      color: var(--color-light-gray);
+      display: inline-block;
+    }
+
+    .dates {
+      padding-left: 10px;
+      @include media(370px, down) {
+        padding-left: 0px;
+        display: block;
+      }
+    }
+
+    .selfDates {
+      padding-left: 10px;
+      font-size: 18px;
+      line-height: 28px;
+      margin: 15px 0;
+    }
+
+    .relation {
+      @include media($medium-lowest, down) {
+        display: none;
+      }
+      @include media($small-highest, down) {
+        display: inline-block;
+      }
+      @include media($small-lowest, down) {
+        display: none;
+      }
+    }
+
+    ul {
+      list-style-type: none;
       padding: 0;
-      top: 0;
+      margin: 0;
+      text-align: left;
+
+      a {
+        color: var(--color-black);
+        font-family: var(--font-roboto);
+        text-decoration: underline;
+        transition: color var(--transition);
+        cursor: pointer;
+        @include hover {
+          color: var(--color-blue);
+        }
+      }
+    }
+
+    > ul {
+      margin-left: 20px;
+      > li {
+        > ul {
+          margin-left: 20px;
+          > li {
+            > ul {
+              margin-left: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .flex {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--color-extra-light-gray);
+
+      &.lastItem {
+        border-bottom: none;
+      }
     }
   }
 }

@@ -24,6 +24,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         allContentfulPerson {
           nodes {
             slug
+            isLive
           }
         }
       }
@@ -44,15 +45,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   if (allPersons.length > 0) {
     allPersons.forEach((person) => {
-      const slug = `/person/${person.slug}`;
-      createPage({
-        path: slug,
-        component: personTemplate,
-        context: {
-          slug: person.slug,
-          type: 'person',
-        },
-      });
+      if (person.isLive) {
+        const slug = `/person/${person.slug}`;
+        createPage({
+          path: slug,
+          component: personTemplate,
+          context: {
+            slug: person.slug,
+            type: 'person',
+          },
+        });
+      }
     });
   }
 

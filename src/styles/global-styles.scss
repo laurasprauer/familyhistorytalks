@@ -42,19 +42,33 @@ h1 {
   transition: color var(--transition);
   color: var(--color-black);
   font-family: var(--font-roboto-slab);
-  font-size: 30px;
-  line-height: 36px;
+  font-size: 40px;
+  line-height: 50px;
   margin: 5px 0;
+
+  @include media($small-lowest, down) {
+    font-size: 34px;
+    line-height: 44px;
+  }
 }
 
 h2 {
   transition: color var(--transition);
   color: var(--color-black);
-  font-family: var(--font-roboto);
-  font-size: 16px;
-  line-height: 26px;
+  font-family: var(--font-roboto-slab);
+  font-size: 22px;
+  line-height: 32px;
   font-weight: 700;
-  letter-spacing: 3px;
+  margin: 5px 0;
+}
+
+h3 {
+  transition: color var(--transition);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
   margin: 5px 0;
 }
 
@@ -69,14 +83,13 @@ p {
 }
 
 a {
-  box-shadow: inset 0 -2px 0 0 var(--color-kelly-green);
   color: var(--color-black);
   font-family: var(--font-roboto);
-  font-weight: bold;
-  text-decoration: none;
-  transition: box-shadow var(--transition);
+  text-decoration: underline;
+  transition: color var(--transition);
+  cursor: pointer;
   @include hover {
-    box-shadow: inset 0 -16px 0 0 var(--color-kelly-green);
+    color: var(--color-blue);
   }
 }
 

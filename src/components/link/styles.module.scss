@@ -1,12 +1,10 @@
 .link {
-  box-shadow: inset 0 -2px 0 0 var(--color-kelly-green);
   color: var(--color-black);
   font-family: var(--font-roboto);
-  font-weight: bold;
-  text-decoration: none;
-  transition: box-shadow var(--transition);
+  text-decoration: underline;
+  transition: color var(--transition);
   cursor: pointer;
   @include hover {
-    box-shadow: inset 0 -16px 0 0 var(--color-kelly-green);
+    color: var(--color-blue);
   }
 }
