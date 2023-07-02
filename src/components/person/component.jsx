@@ -1,11 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { renderFamilyTreeArray } from './renderFamilyTreeArray.jsx';
 import Link from '@components/link';
 import * as styles from './styles.module.scss';
+import './styles.scss';
 
 export const Person = ({ data }) => {
-  const formatDate = (month, day, year, yearOnly) => {
+  const [resources, setResources] = useState([]);
+
+  useEffect(() => {
+    // on component load, we are going to fetch all the resources
+    if (data.resources && data.resources.length > 0) {
+      const resourcesArray = [];
+      const resourcesPromises = data.resources.map((resource, index) => {
+        return fetch(
+          `https://resources.familyhistorytalks.com/${resource.sid}/data.json`
+        )
+          .then((response) => response.json())
+          .then((json) => {
+            resourcesArray.push({ ...json, order: index + 1 });
+          });
+      });
+      Promise.all(resourcesPromises).then(() => {
+        // now that we have all the resource data
+        // loop through the resource spans and add the appropriate links
+        setTimeout(() => {
+          setResources(resourcesArray.sort((a, b) => a.order - b.order));
+          const isBrowser = typeof window !== 'undefined';
+          if (isBrowser) {
+            const resourceSpans = document.querySelectorAll('span[resource]');
+            if (resourceSpans && resourceSpans.length > 0) {
+              resourceSpans.forEach((span) => {
+                const spanAttribute = span.getAttribute('resource');
+                const resourceIndex = resourcesArray.findIndex((resource) => {
+                  return spanAttribute == resource.id;
+                });
+                // only set the span's attributes if it's empty
+                if (!span.innerHTML) {
+                  const inlineFunction = `(function(){const element = document.getElementById("${resourcesArray[resourceIndex].id}");element.scrollIntoView({ behavior: 'smooth', block: 'center' });element.focus({ preventScroll: true });return false;})(); return false;`;
+                  span.setAttribute('onClick', inlineFunction);
+                  const txt = document.createTextNode(
+                    `[${resourcesArray[resourceIndex].order}]`
+                  );
+                  span.appendChild(txt);
+                }
+              });
+            }
+          }
+        });
+      });
+    }
+  }, []);
+
+  const formatDate = (month, day, year) => {
     if (!month && !day && !year) {
       return '????';
     }
@@ -35,11 +82,10 @@ export const Person = ({ data }) => {
   };
 
   const familyTreeArray = renderFamilyTreeArray(data);
-  console.log(familyTreeArray);
 
   return (
     <div className={`${styles.person}`}>
-      <div className={`${styles.sidebar}`}>
+      <div className={`${styles.content}`}>
         <h1>
           {data.name} {data.surname}
         </h1>
@@ -47,6 +93,13 @@ export const Person = ({ data }) => {
           {formatDate(data.birthMonth, data.birthDay, data.birthYear)} -{' '}
           {formatDate(data.deathMonth, data.deathDay, data.deathYear)}
         </p>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: data.body.childMarkdownRemark.html,
+          }}
+        ></div>
+      </div>
+      <div className={`${styles.sidebar}`}>
         <h2>Family Relationships</h2>
         <div className={`${styles.family}`}>
           <ul>
@@ -160,14 +213,31 @@ export const Person = ({ data }) => {
             })}
           </ul>
         </div>
+        {data.resources && data.resources.map ? (
+          <>
+            <h2>Resources</h2>
+            <div>
+              {resources.map((resource) => {
+                return (
+                  <div key={resource.id} className={`${styles.resource}`}>
+                    <Link
+                      id={`${resource.id}`}
+                      target="_blank"
+                      to={`https://resources.familyhistorytalks.com/${resource.id}/${resource.fileName}`}
+                    >
+                      <h3>
+                        <span>{resource.order}</span>
+                        {resource.title}
+                      </h3>
+                      <p>{resource.description}</p>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        ) : null}
       </div>
-
-      <div
-        className={`${styles.content}`}
-        dangerouslySetInnerHTML={{
-          __html: data.body.childMarkdownRemark.html,
-        }}
-      ></div>
     </div>
   );
 };

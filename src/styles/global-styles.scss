@@ -72,6 +72,18 @@ h3 {
   margin: 5px 0;
 }
 
+h4 {
+  transition: color var(--transition);
+  color: var(--color-dark-gray);
+  font-family: var(--font-roboto-slab);
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 24px;
+  font-style: italic;
+  margin: 5px 0;
+}
+
 p {
   transition: color var(--transition);
   color: var(--color-black);

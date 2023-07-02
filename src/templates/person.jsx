@@ -33,6 +33,10 @@ export const pageQuery = graphql`
       deathMonth
       deathYear
       gender
+      resources {
+        title
+        sid
+      }
       mother {
         birthYear
         deathYear

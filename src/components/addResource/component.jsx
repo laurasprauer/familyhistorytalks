@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from '@components/link';
+import moment from 'moment';
 
 import * as styles from './styles.module.scss';
 
@@ -24,6 +25,8 @@ export const AddResource = () => {
     } else if (e.target.id === 'endYear') {
       setEndYear(e.target.value);
     } else if (e.target.id === 'transcript') {
+      console.log(JSON.stringify(e.target.value));
+      console.log(moment().format('x'));
       setTranscript(e.target.value);
     } else if (e.target.id === 'file') {
       setFile(e.target.files[0]);

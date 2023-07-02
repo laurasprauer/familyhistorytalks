@@ -38,8 +38,7 @@
     outline: none;
     transition: background-color var(--transition);
     cursor: pointer;
-    &:hover,
-    &:focus {
+    @include hover {
       background-color: var(--color-kelly-green);
     }
   }

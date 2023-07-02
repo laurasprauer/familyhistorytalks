@@ -1,5 +1,4 @@
 .person {
-  max-width: 1100px;
   margin: 0 auto;
   text-align: center;
   display: flex;
@@ -32,13 +31,116 @@
     h2 {
       margin-top: 32px;
     }
+
+    .family {
+      background-color: var(--color-extra-extra-light-gray);
+      border-radius: var(--border-radius);
+      margin-top: 8px;
+      padding: 5px 0px;
+
+      .name {
+        color: var(--color-black);
+        &.self {
+          color: var(--color-blue);
+          font-weight: 700;
+        }
+        &.spouse {
+          color: var(--color-light-gray);
+        }
+      }
+
+      .dates,
+      .relation {
+        font-size: 12px;
+        line-height: 22px;
+        color: var(--color-light-gray);
+        display: inline-block;
+      }
+
+      .dates {
+        padding-left: 10px;
+        @include media(370px, down) {
+          padding-left: 0px;
+          display: block;
+        }
+      }
+
+      .relation {
+        @include media($medium-lowest, down) {
+          display: none;
+        }
+        @include media($small-highest, down) {
+          display: inline-block;
+        }
+        @include media($small-lowest, down) {
+          display: none;
+        }
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+
+        a {
+          color: var(--color-black);
+          font-family: var(--font-roboto);
+          text-decoration: underline;
+          transition: color var(--transition);
+          cursor: pointer;
+          @include hover {
+            color: var(--color-blue);
+          }
+        }
+      }
+
+      > ul {
+        margin-left: 20px;
+        > li {
+          > ul {
+            margin-left: 20px;
+            > li {
+              > ul {
+                margin-left: 20px;
+              }
+            }
+          }
+        }
+      }
+
+      .flex {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--color-extra-light-gray);
+
+        &.lastItem {
+          border-bottom: none;
+        }
+      }
+    }
   }
 
   .content {
-    padding-left: 60px;
+    padding-right: 70px;
+
+    @include media($small-highest, down) {
+      padding-right: 0px;
+    }
+
+    .selfDates {
+      font-size: 18px;
+      line-height: 28px;
+      color: var(--color-light-gray);
+      margin-bottom: 30px;
+    }
+
     h1,
     h2,
-    h3 {
+    h3,
+    h4 {
       margin-bottom: -5px;
       margin-top: 30px;
       text-align: left;
@@ -49,103 +151,88 @@
       text-align: left;
     }
 
-    @include media($small-highest, down) {
-      padding-left: 0px;
+    img {
+      width: 100%;
+      display: block;
+      margin: 30px auto 15px auto;
+    }
+
+    blockquote {
+      color: var(--color-dark-gray);
+      margin: 30px;
+      width: calc(100% - 60px);
+      padding: 10px 0;
+      border-top: 1px solid var(--color-extra-light-gray);
+      border-bottom: 1px solid var(--color-extra-light-gray);
+      > p {
+        color: var(--color-dark-gray);
+      }
+    }
+
+    span[resource] {
+      color: var(--color-blue);
+      cursor: pointer;
+      @include hover {
+        text-decoration: underline;
+      }
     }
   }
 
-  .family {
-    background-color: var(--color-extra-extra-light-gray);
-    border-radius: var(--border-radius);
-    margin-top: 8px;
+  .resource {
+    position: relative;
 
-    .name {
-      color: var(--color-black);
-      &.self {
-        color: var(--color-blue);
-        font-weight: 700;
-      }
-      &.spouse {
-        color: var(--color-light-gray);
-      }
-    }
+    a {
+      cursor: pointer;
+      display: block;
 
-    .dates,
-    .relation {
-      font-size: 12px;
-      line-height: 22px;
-      color: var(--color-light-gray);
-      display: inline-block;
-    }
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-extra-light-gray);
+      margin: 10px 0 24px 0;
+      overflow: hidden;
+      text-decoration: none;
+      transition: border var(--transition);
 
-    .dates {
-      padding-left: 10px;
-      @include media(370px, down) {
-        padding-left: 0px;
-        display: block;
-      }
-    }
-
-    .selfDates {
-      padding-left: 10px;
-      font-size: 18px;
-      line-height: 28px;
-      margin: 15px 0;
-    }
-
-    .relation {
-      @include media($medium-lowest, down) {
-        display: none;
-      }
-      @include media($small-highest, down) {
-        display: inline-block;
-      }
-      @include media($small-lowest, down) {
-        display: none;
-      }
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      text-align: left;
-
-      a {
+      h3 {
         color: var(--color-black);
-        font-family: var(--font-roboto);
-        text-decoration: underline;
-        transition: color var(--transition);
-        cursor: pointer;
-        @include hover {
-          color: var(--color-blue);
+        padding: 10px 16px;
+        background-color: var(--color-white);
+        margin: 0;
+        font-size: 16px;
+        line-height: 20px;
+
+        > span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 20px;
+          height: 25px;
+          width: 25px;
+          background-color: var(--color-black);
+          color: var(--color-white);
+          position: absolute;
+          left: -14px;
+          top: 11px;
+          font-size: 14px;
+          transition: background-color var(--transition),
+            color var(--transition);
         }
       }
-    }
 
-    > ul {
-      margin-left: 20px;
-      > li {
-        > ul {
-          margin-left: 20px;
-          > li {
-            > ul {
-              margin-left: 20px;
-            }
-          }
-        }
+      p {
+        color: var(--color-dark-gray);
+        padding: 10px 16px;
+        font-size: 13px;
+        line-height: 20px;
+        margin: 0;
+        border-top: 1px solid var(--color-extra-light-gray);
       }
-    }
 
-    .flex {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding: 10px 20px;
-      border-bottom: 1px solid var(--color-extra-light-gray);
-
-      &.lastItem {
-        border-bottom: none;
+      @include hover {
+        border: 1px solid var(--color-blue);
+        span {
+          background-color: var(--color-blue);
+          color: var(--color-white);
+        }
       }
     }
   }

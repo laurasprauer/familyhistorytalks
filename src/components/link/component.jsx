@@ -14,6 +14,7 @@ const Link = ({
   onClick,
   setInnerHTML,
   download,
+  id,
 }) => {
   const classes = `
     ${styles.link}
@@ -32,6 +33,7 @@ const Link = ({
         target={target}
         className={classes}
         {...(download && { download: true })}
+        {...(id && { id: id })}
       >
         {setInnerHTML && (
           <span dangerouslySetInnerHTML={{ __html: children }}></span>
@@ -49,6 +51,7 @@ const Link = ({
         className={classes}
         {...(onClick && { onClick: onClick.bind(this) })}
         {...(download && { download: true })}
+        {...(id && { id: id })}
       >
         {setInnerHTML && (
           <span dangerouslySetInnerHTML={{ __html: children }}></span>
@@ -69,6 +72,7 @@ Link.propTypes = {
   target: PropTypes.string,
   to: PropTypes.string,
   onClick: PropTypes.func,
+  id: PropTypes.string,
 };
 
 Link.defaultProps = {
