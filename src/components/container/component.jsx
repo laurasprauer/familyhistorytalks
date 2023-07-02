@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Person from '@components/person';
 import AddResource from '@components/addResource';
 import Link from '@components/link';
+import Header from '@components/header';
 
 import { Helmet } from 'react-helmet';
 
@@ -54,6 +55,8 @@ export const Container = ({ type, slug, data }) => {
         <meta name="twitter:image" content={image} />
         <meta name="image" content={image} />
       </Helmet>
+
+      <Header />
 
       <div className={`${styles.container}`}>
         <div className={styles.wrapper}>

@@ -1,0 +1,121 @@
+.header {
+  height: 80px;
+  width: 100%;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--color-extra-light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include media($small-lowest, down) {
+    display: block;
+    height: auto;
+    padding: 20px 25px;
+  }
+
+  .logo {
+    @include media($small-lowest, down) {
+      padding-right: calc(100% - 217px);
+    }
+    svg {
+      height: 40px;
+    }
+  }
+
+  .menuIcon {
+    height: 19px;
+    width: 19px;
+    position: relative;
+    display: none;
+    top: -5px;
+
+    @include media($small-lowest, down) {
+      display: inline-block;
+    }
+
+    span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--color-dark-gray);
+      margin-bottom: 3px;
+      position: absolute;
+      top: 7px;
+      border-radius: 2px;
+      transition: opacity var(--transition);
+    }
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--color-dark-gray);
+      position: absolute;
+      border-radius: 2px;
+      transition: transform var(--transition), top var(--transition);
+    }
+    &:before {
+      top: 0;
+    }
+    &:after {
+      top: 14px;
+    }
+
+    &.menuOpen {
+      &:before {
+        transform: rotate(45deg);
+        top: 5px;
+      }
+      &:after {
+        transform: rotate(-45deg);
+        top: 5px;
+      }
+      span {
+        opacity: 0;
+      }
+    }
+  }
+
+  .nav {
+    overflow: hidden;
+
+    @include media($small-lowest, down) {
+      width: calc(100% + 50px);
+      margin-left: -25px;
+      margin-bottom: -20px;
+      margin-top: 20px;
+      max-height: 0px;
+      transition: max-height var(--transition);
+    }
+
+    &.open {
+      max-height: 300px;
+    }
+
+    a {
+      display: inline-block;
+      color: var(--color-dark-gray);
+      text-align: center;
+      padding-left: 32px;
+      text-decoration: none;
+      font-size: 16px;
+      line-height: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      @include hover {
+        color: var(--color-blue);
+        @include media($small-lowest, down) {
+          background-color: var(--color-extra-extra-light-gray);
+        }
+      }
+
+      @include media($small-lowest, down) {
+        display: block;
+        padding: 10px 0;
+        border-top: 1px solid var(--color-extra-light-gray);
+      }
+    }
+  }
+}
