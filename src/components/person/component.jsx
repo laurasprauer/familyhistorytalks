@@ -35,14 +35,14 @@ export const Person = ({ data }) => {
                 const resourceIndex = resourcesArray.findIndex((resource) => {
                   return spanAttribute == resource.id;
                 });
-                // only set the span's attributes if it's empty
-                if (!span.innerHTML) {
+                // only set the span's attributes if it's empty and the resource exists in contentful
+                if (!span.getAttribute('onClick') && resourceIndex >= 0) {
                   const inlineFunction = `(function(){const element = document.getElementById("${resourcesArray[resourceIndex].id}");element.scrollIntoView({ behavior: 'smooth', block: 'center' });element.focus({ preventScroll: true });return false;})(); return false;`;
                   span.setAttribute('onClick', inlineFunction);
-                  const txt = document.createTextNode(
-                    `[${resourcesArray[resourceIndex].order}]`
-                  );
-                  span.appendChild(txt);
+                  const txt = `[${resourcesArray[resourceIndex].order}${
+                    span.innerHTML ? span.innerHTML : ''
+                  }]`;
+                  span.innerHTML = txt;
                 }
               });
             }
@@ -65,11 +65,17 @@ export const Person = ({ data }) => {
   const wrapNameInLink = (link, content, isLive, relationship) => {
     if (link && link !== 'unknownPlaceholder' && isLive) {
       return (
-        <Link to={`/person/${link}`} className={`${styles.name}`}>
+        <Link
+          to={`/person/${link}`}
+          className={`${styles.name} ${
+            relationship === 'spouse / partner' ? styles.spouse : ''
+          }`}
+        >
           {content}
         </Link>
       );
     }
+
     return (
       <span
         className={`${styles.name} ${
@@ -86,18 +92,18 @@ export const Person = ({ data }) => {
   return (
     <div className={`${styles.person}`}>
       <div className={`${styles.content}`}>
-        <h1>
-          {data.name} {data.surname}
-        </h1>
+        <h1 className={`${styles.nameTitle}`}>{data.name}</h1>
         <p className={`${styles.selfDates}`}>
           {formatDate(data.birthMonth, data.birthDay, data.birthYear)} -{' '}
           {formatDate(data.deathMonth, data.deathDay, data.deathYear)}
         </p>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: data.body.childMarkdownRemark.html,
-          }}
-        ></div>
+        {data.body ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data.body.childMarkdownRemark.html,
+            }}
+          ></div>
+        ) : null}
       </div>
       <div className={`${styles.sidebar}`}>
         <h2>Family Relationships</h2>

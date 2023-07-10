@@ -1,0 +1,44 @@
+.addResource {
+  margin: 0 auto;
+
+  label {
+    margin: 20px 0;
+    display: block;
+  }
+
+  input,
+  textarea {
+    background-color: var(--color-white);
+    border: 0;
+    border-radius: var(--border-radius);
+    color: var(--color-black);
+    font-family: var(--font-roboto);
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    padding: 10px;
+    width: calc(100% - 20px);
+    border: 1px solid var(--color-black);
+    margin-top: 5px;
+
+    &:focus {
+      outline: 2px solid var(--color-kelly-green);
+    }
+  }
+
+  textarea {
+    height: 200px;
+  }
+
+  input[type='submit'] {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    border: none;
+    outline: none;
+    transition: background-color var(--transition);
+    cursor: pointer;
+    @include hover {
+      background-color: var(--color-kelly-green);
+    }
+  }
+}

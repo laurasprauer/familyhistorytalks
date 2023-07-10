@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Person from '@components/person';
+import Search from '@components/search';
 import AddResource from '@components/addResource';
 import Link from '@components/link';
 import Header from '@components/header';
@@ -11,7 +12,7 @@ import * as styles from './styles.module.scss';
 
 export const Container = ({ type, slug, data }) => {
   let title = 'Family History Talks';
-  let description = 'Family Genealogy Website';
+  let description = 'A Genealogy Project';
   let image = '';
 
   if (data && type === '404') {
@@ -19,12 +20,20 @@ export const Container = ({ type, slug, data }) => {
     description = "Looks like this page doesn't exist.";
   }
 
+  if (data && type === 'search') {
+    title = 'Family History Talks - Search';
+    description =
+      'Search through the Family History Talks database for resources and biographies.';
+  }
+
   if (data && type === 'person') {
     title = `Family History Talks - ${data.name}`;
-    description = `${data.description.childMarkdownRemark}`.replace(
-      /(<([^>]+)>)/gi,
-      ''
-    );
+    if (data.description) {
+      description = `${data.description.childMarkdownRemark}`.replace(
+        /(<([^>]+)>)/gi,
+        ''
+      );
+    }
     // image = `${data.shareImage.file.url}`;
   }
 
@@ -67,6 +76,7 @@ export const Container = ({ type, slug, data }) => {
           )}
 
           {type === 'person' && <Person data={data} />}
+          {type === 'search' && <Search />}
           {type === 'addResource' && <AddResource />}
 
           {type === '404' && (

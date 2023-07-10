@@ -1,3 +1,8 @@
+const truncateName = (name, surname) => {
+  const array = name.split(' ');
+  return `${array[0]} ${surname}`;
+};
+
 export const renderFamilyTreeArray = (data) => {
   let familyArray = [];
 
@@ -17,7 +22,7 @@ export const renderFamilyTreeArray = (data) => {
 
       const childInfo = {
         relationship: c.gender === 'Female' ? 'daughter' : 'son',
-        name: `${c.name} ${c.surname}`,
+        name: truncateName(`${c.name}`, `${c.surname}`),
         link: c.slug,
         isLive: c.isLive,
         dates: `${c.birthYear ? c.birthYear : '????'} - ${
@@ -27,7 +32,9 @@ export const renderFamilyTreeArray = (data) => {
 
       const spouseInfo = {
         relationship: 'spouse / partner',
-        name: `+ ${spouse ? `${spouse.name} ${spouse.surname}` : 'Unknown'}`,
+        name: `+ ${
+          spouse ? `${truncateName(spouse.name, spouse.surname)}` : 'Unknown'
+        }`,
         link: spouse ? spouse.slug : 'unknownPlaceholder',
         isLive: spouse ? spouse.isLive : null,
         dates:
@@ -58,7 +65,7 @@ export const renderFamilyTreeArray = (data) => {
     if (data.father) {
       familyArray.push({
         relationship: 'father',
-        name: `${data.father.name} ${data.father.surname}`,
+        name: `${truncateName(data.father.name, data.father.surname)}`,
         link: data.father.slug,
         isLive: data.isLive,
         dates: `${data.father.birthYear ? data.father.birthYear : '????'} - ${
@@ -76,7 +83,7 @@ export const renderFamilyTreeArray = (data) => {
     if (data.mother) {
       familyArray.push({
         relationship: 'mother',
-        name: `${data.mother.name} ${data.mother.surname}`,
+        name: `${truncateName(data.mother.name, data.mother.surname)}`,
         link: data.mother.slug,
         isLive: data.mother.isLive,
         dates: `${data.mother.birthYear ? data.mother.birthYear : '????'} - ${
@@ -84,7 +91,7 @@ export const renderFamilyTreeArray = (data) => {
         }`,
         childrenOfPerson: [
           {
-            name: `${data.name} ${data.surname}`,
+            name: `${truncateName(data.name, data.surname)}`,
             relationship: 'self',
           },
           ...spouseWithChildren,
@@ -96,7 +103,7 @@ export const renderFamilyTreeArray = (data) => {
         name: 'Unknown',
         childrenOfPerson: [
           {
-            name: `${data.name} ${data.surname}`,
+            name: `${truncateName(data.name, data.surname)}`,
             relationship: 'self',
           },
           ...spouseWithChildren,
@@ -106,7 +113,7 @@ export const renderFamilyTreeArray = (data) => {
   } else {
     // no parents
     familyArray.push({
-      name: `${data.name} ${data.surname}`,
+      name: `${truncateName(data.name, data.surname)}`,
       relationship: 'self',
     });
     familyArray = familyArray.concat(spouseWithChildren);
