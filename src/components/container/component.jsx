@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Person from '@components/person';
 import Search from '@components/search';
+import Surnames from '@components/surnames';
+import Surname from '@components/surname';
 import AddResource from '@components/addResource';
 import Link from '@components/link';
 import Header from '@components/header';
@@ -24,6 +26,16 @@ export const Container = ({ type, slug, data }) => {
     title = 'Family History Talks - Search';
     description =
       'Search through the Family History Talks database for resources and biographies.';
+  }
+
+  if (data && type === 'surnames') {
+    title = 'Family History Talks - Surnames';
+    description = 'List of available biographies by surname.';
+  }
+
+  if (data && type === 'surname') {
+    title = `Family History Talks - Surname: ${data.surname}`;
+    description = `List of available ${data.surname} biographies.`;
   }
 
   if (data && type === 'person') {
@@ -77,6 +89,8 @@ export const Container = ({ type, slug, data }) => {
 
           {type === 'person' && <Person data={data} />}
           {type === 'search' && <Search />}
+          {type === 'surnames' && <Surnames data={data} />}
+          {type === 'surname' && <Surname data={data} />}
           {type === 'addResource' && <AddResource />}
 
           {type === '404' && (

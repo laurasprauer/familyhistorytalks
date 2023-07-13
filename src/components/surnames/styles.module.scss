@@ -1,0 +1,26 @@
+.surnamesContainer {
+  h1,
+  p {
+    max-width: 700px;
+  }
+}
+
+.surnames {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 20px);
+  margin-left: -10px;
+  margin-top: 60px;
+  a {
+    border-radius: var(--border-radius);
+    padding: 10px;
+    margin: 10px;
+    text-transform: uppercase;
+    &:nth-child(odd) {
+      background-color: var(--color-extra-extra-light-gray);
+    }
+    &:nth-child(even) {
+      border: 1px solid var(--color-extra-light-gray);
+    }
+  }
+}

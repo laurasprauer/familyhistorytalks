@@ -25,6 +25,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nodes {
             slug
             isLive
+            surname
           }
         }
       }
@@ -41,11 +42,29 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const pageTemplate = path.resolve('./src/templates/flexible.jsx');
   const personTemplate = path.resolve('./src/templates/person.jsx');
+  const surnameTemplate = path.resolve('./src/templates/surname.jsx');
   const allPersons = result.data.allContentfulPerson.nodes;
+  const surnames = [];
 
   if (allPersons.length > 0) {
     allPersons.forEach((person) => {
       if (person.isLive) {
+        const surnameIndex = surnames
+          .map((e) => e.surname)
+          .indexOf(person.surname);
+
+        if (surnameIndex >= 0) {
+          surnames[surnameIndex].count = surnames[surnameIndex].count + 1;
+        } else {
+          surnames.push({
+            surname: person.surname,
+            count: 1,
+            slug: `/surname/${person.surname
+              .toLowerCase()
+              .replace(/[^a-zA-Z ]/g, '')}`,
+          });
+        }
+
         const slug = `/person/${person.slug}`;
         createPage({
           path: slug,
@@ -59,12 +78,38 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     });
   }
 
+  if (surnames.length >= 1) {
+    surnames.forEach((surname) => {
+      createPage({
+        path: surname.slug,
+        component: surnameTemplate,
+        context: {
+          slug: surname.slug,
+          type: 'surname',
+          surname: surname.surname,
+        },
+      });
+    });
+  }
+
   createPage({
     path: '/',
     component: pageTemplate,
     context: {
       slug: '/',
       type: 'home',
+    },
+  });
+
+  createPage({
+    path: '/surnames',
+    component: pageTemplate,
+    context: {
+      slug: '/surnames',
+      type: 'surnames',
+      data: {
+        surnames: surnames,
+      },
     },
   });
 

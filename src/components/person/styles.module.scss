@@ -1,7 +1,6 @@
 .person {
-  margin: 0 auto;
-  text-align: center;
   display: flex;
+  justify-content: space-between;
 
   @include media($small-highest, down) {
     display: block;
@@ -129,7 +128,7 @@
   }
 
   .content {
-    width: calc(100% - 70px - 420px);
+    width: calc(100% - 420px);
     padding-right: 70px;
 
     @include media($medium-lowest, down) {
