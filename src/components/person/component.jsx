@@ -57,7 +57,7 @@ export const Person = ({ data }) => {
       return '????';
     }
 
-    return `${month ? month : ''} ${day ? day : ''} ${day && year ? ',' : ''} ${
+    return `${month ? month : ''} ${day ? day : ''}${day && year ? ',' : ''} ${
       year ? year : ''
     }`;
   };
@@ -92,11 +92,21 @@ export const Person = ({ data }) => {
   return (
     <div className={`${styles.person}`}>
       <div className={`${styles.content}`}>
-        <h1 className={`${styles.nameTitle}`}>{data.name}</h1>
-        <p className={`${styles.selfDates}`}>
-          {formatDate(data.birthMonth, data.birthDay, data.birthYear)} -{' '}
-          {formatDate(data.deathMonth, data.deathDay, data.deathYear)}
-        </p>
+        <div className={`${styles.top}`}>
+          {data.profileImage ? (
+            <img
+              src={data.profileImage.file.url}
+              alt={`${data.name} portrait`}
+            />
+          ) : null}
+          <div>
+            <h1 className={`${styles.nameTitle}`}>{data.name}</h1>
+            <p className={`${styles.selfDates}`}>
+              {formatDate(data.birthMonth, data.birthDay, data.birthYear)} -{' '}
+              {formatDate(data.deathMonth, data.deathDay, data.deathYear)}
+            </p>
+          </div>
+        </div>
         {data.body ? (
           <div
             dangerouslySetInnerHTML={{
@@ -219,7 +229,7 @@ export const Person = ({ data }) => {
             })}
           </ul>
         </div>
-        {data.resources && data.resources.map ? (
+        {data.resources && resources.length > 0 ? (
           <>
             <h2>Resources</h2>
             <div>

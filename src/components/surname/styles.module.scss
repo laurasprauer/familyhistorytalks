@@ -1,26 +1,104 @@
 .surnameContainer {
+  h1 {
+    margin-bottom: 20px;
+  }
   h1,
   p {
     max-width: 700px;
   }
+
+  .backLink {
+    margin-bottom: 30px;
+    svg {
+      height: 20px;
+      width: 20px;
+      transform: rotate(180deg);
+      position: relative;
+      top: 4px;
+      margin-right: 4px;
+      path {
+        transition: fill var((--transition));
+        fill: var(--color-black);
+      }
+    }
+
+    a {
+      @include hover {
+        svg {
+          path {
+            fill: var(--color-blue);
+          }
+        }
+      }
+    }
+  }
 }
 
 .people {
-  display: flex;
-  flex-wrap: wrap;
   width: calc(100% - 20px);
   margin-left: -10px;
   margin-top: 60px;
-  a {
+
+  svg,
+  img {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
     border-radius: var(--border-radius);
-    padding: 10px;
-    margin: 10px;
-    text-transform: uppercase;
-    &:nth-child(odd) {
-      background-color: var(--color-extra-extra-light-gray);
+    position: relative;
+    top: -3px;
+  }
+
+  a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 5px 10px;
+    border-bottom: 1px solid var(--color-light-gray);
+    transition: color var(--transition), background-color var(--transition),
+      border var(--transition);
+
+    span {
+      display: block;
+      font-size: 12px;
+      line-height: 22px;
+      color: var(--color-light-gray);
+      position: relative;
+      top: -5px;
     }
-    &:nth-child(even) {
-      border: 1px solid var(--color-extra-light-gray);
+
+    @include hover {
+      color: var(--color-blue);
+      background-color: var(--color-extra-extra-light-gray);
+      border-bottom: 1px solid var(--color-blue);
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      list-style: none;
+      position: relative;
+      display: block;
+      padding: 0;
+      margin: 10px;
+      width: 25%;
+
+      @include media($medium-lowest, down) {
+        width: calc(1 / 3 * 100%);
+      }
+
+      @include media($small-lowest, down) {
+        width: 50%;
+      }
+
+      @include media($x-small-highest, down) {
+        width: 100%;
+      }
     }
   }
 }

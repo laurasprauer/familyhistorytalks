@@ -4,30 +4,41 @@ import Container from '@components/container';
 
 class SurnameTemplate extends React.Component {
   render() {
-    const { slug, type, surname } = this.props.pageContext;
-    const data = this.props.data.allContentfulPerson;
-    return (
-      <Container
-        slug={slug}
-        type={type}
-        data={{ people: data, surname: surname }}
-      />
-    );
+    const { slug, type } = this.props.pageContext;
+    const data = {
+      surname: this.props.data.contentfulSurname,
+      people: this.props.data.allContentfulPerson.edges,
+    };
+
+    return <Container slug={slug} type={type} data={[data]} />;
   }
 }
 
 export const pageQuery = graphql`
-  query People($surname: String!) {
+  query Surname($slug: String!) {
     allContentfulPerson(
-      filter: { surname: { eq: $surname }, isLive: { eq: true } }
+      filter: { isLive: { eq: true }, surname: { slug: { eq: $slug } } }
     ) {
       edges {
         node {
-          name
-          surname
           slug
-          birthYear
+          name
+          profileImage {
+            file {
+              url
+            }
+          }
           deathYear
+          birthYear
+        }
+      }
+    }
+    contentfulSurname(slug: { eq: $slug }) {
+      surname
+      slug
+      body {
+        childMarkdownRemark {
+          html
         }
       }
     }

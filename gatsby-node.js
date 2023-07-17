@@ -25,7 +25,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nodes {
             slug
             isLive
-            surname
+          }
+        }
+        allContentfulSurname(
+          sort: { fields: surname }
+          filter: { isLive: { eq: true } }
+        ) {
+          edges {
+            node {
+              slug
+              isLive
+              surname
+            }
           }
         }
       }
@@ -44,27 +55,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const personTemplate = path.resolve('./src/templates/person.jsx');
   const surnameTemplate = path.resolve('./src/templates/surname.jsx');
   const allPersons = result.data.allContentfulPerson.nodes;
-  const surnames = [];
+  const allSurnames = result.data.allContentfulSurname.edges;
 
   if (allPersons.length > 0) {
     allPersons.forEach((person) => {
       if (person.isLive) {
-        const surnameIndex = surnames
-          .map((e) => e.surname)
-          .indexOf(person.surname);
-
-        if (surnameIndex >= 0) {
-          surnames[surnameIndex].count = surnames[surnameIndex].count + 1;
-        } else {
-          surnames.push({
-            surname: person.surname,
-            count: 1,
-            slug: `/surname/${person.surname
-              .toLowerCase()
-              .replace(/[^a-zA-Z ]/g, '')}`,
-          });
-        }
-
         const slug = `/person/${person.slug}`;
         createPage({
           path: slug,
@@ -78,17 +73,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     });
   }
 
-  if (surnames.length >= 1) {
-    surnames.forEach((surname) => {
-      createPage({
-        path: surname.slug,
-        component: surnameTemplate,
-        context: {
-          slug: surname.slug,
-          type: 'surname',
-          surname: surname.surname,
-        },
-      });
+  if (allSurnames.length > 0) {
+    allSurnames.forEach((surname) => {
+      if (surname.node.isLive) {
+        const slug = `/surnames/${surname.node.slug}`;
+        createPage({
+          path: slug,
+          component: surnameTemplate,
+          context: {
+            slug: surname.node.slug,
+            type: 'surname',
+          },
+        });
+      }
     });
   }
 
@@ -108,7 +105,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       slug: '/surnames',
       type: 'surnames',
       data: {
-        surnames: surnames,
+        surnames: allSurnames,
       },
     },
   });

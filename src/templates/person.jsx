@@ -14,7 +14,9 @@ export const pageQuery = graphql`
   query Person($slug: String!) {
     contentfulPerson(slug: { eq: $slug }) {
       name
-      surname
+      surname {
+        surname
+      }
       slug
       body {
         childMarkdownRemark {
@@ -24,6 +26,11 @@ export const pageQuery = graphql`
       description {
         childMarkdownRemark {
           html
+        }
+      }
+      profileImage {
+        file {
+          url
         }
       }
       birthDay
@@ -44,7 +51,9 @@ export const pageQuery = graphql`
         gender
         isLive
         slug
-        surname
+        surname {
+          surname
+        }
       }
       father {
         birthYear
@@ -53,7 +62,9 @@ export const pageQuery = graphql`
         gender
         isLive
         slug
-        surname
+        surname {
+          surname
+        }
       }
       childrenOfPerson {
         birthYear
@@ -62,7 +73,9 @@ export const pageQuery = graphql`
         gender
         isLive
         slug
-        surname
+        surname {
+          surname
+        }
         gender
         mother {
           birthYear
@@ -71,7 +84,9 @@ export const pageQuery = graphql`
           gender
           isLive
           slug
-          surname
+          surname {
+            surname
+          }
         }
         father {
           birthYear
@@ -80,7 +95,9 @@ export const pageQuery = graphql`
           gender
           isLive
           slug
-          surname
+          surname {
+            surname
+          }
         }
       }
     }

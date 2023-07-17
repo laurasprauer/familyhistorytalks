@@ -1,24 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from '@components/link';
+import SVG from '@components/svg';
 
 import * as styles from './styles.module.scss';
 
 export const Surname = ({ data }) => {
-  console.log(data);
+  const people = data[0].people;
+  const surname = data[0].surname;
   return (
     <div className={`${styles.surnameContainer}`}>
-      <h1>{data.surname}</h1>
+      <div className={`${styles.backLink}`}>
+        <Link to="/surnames">
+          <SVG name="arrow" /> Back to Surnames List
+        </Link>
+      </div>
+      <h1>{surname.surname}</h1>
+      {surname.body ? (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: surname.body.childMarkdownRemark.html,
+          }}
+        ></div>
+      ) : null}
       <div className={`${styles.people}`}>
-        {data && data.people && data.people.edges
-          ? data.people.edges.map((person, index) => {
-              return (
-                <Link to={`/person/${person.node.slug}`} key={index}>
-                  {person.node.name}
-                </Link>
-              );
-            })
-          : null}
+        <ul>
+          {people
+            ? people.map((person, index) => {
+                console.log(person);
+                return (
+                  <li key={index}>
+                    <Link to={`/person/${person.node.slug}`}>
+                      {person.node.profileImage ? (
+                        <img
+                          src={person.node.profileImage.file.url}
+                          alt={`${person.node.name} portrait`}
+                        />
+                      ) : (
+                        <SVG name="profile" />
+                      )}
+                      <div>
+                        {person.node.name}{' '}
+                        <span>
+                          ({person.node.birthYear} - {person.node.deathYear})
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })
+            : null}
+        </ul>
       </div>
     </div>
   );
