@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Link from '@components/Link';
+import Link from '@components/link';
 import SVG from '@components/svg';
 
 import * as styles from './styles.module.scss';
