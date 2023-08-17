@@ -10,6 +10,7 @@ export const Search = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [results, setResults] = useState(null);
 
   const saveInput = (e) => {
     setSearchQuery(e.target.value);
@@ -29,8 +30,7 @@ export const Search = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        // response needs to return id and link
+        setResults(response);
         setLoading(false);
       })
       .catch((error) => {
@@ -44,11 +44,31 @@ export const Search = () => {
       <form onSubmit={handleSubmit}>
         <input type="text" name="search" id="search" onChange={saveInput} />
 
-        <p>+add filter</p>
-        <p>+sort</p>
+        {/* <div className={`${styles.filter}`}>
+          <button>+add filter</button>
+        </div> */}
 
-        <input type="submit" value="Search Resources" disabled={loading} />
+        <input type="submit" value="Search" disabled={loading} />
       </form>
+      {results ? (
+        <div className={`${styles.results}`}>
+          {results && results.length
+            ? results.map((item, index) => {
+                return (
+                  <Link
+                    to={`https://resources.familyhistorytalks.com/${item.id}/${item.fileName}`}
+                    key={index}
+                    className={`${styles.resultItem}`}
+                    target="_blank"
+                  >
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </Link>
+                );
+              })
+            : null}
+        </div>
+      ) : null}
     </div>
   );
 };

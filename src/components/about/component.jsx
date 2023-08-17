@@ -9,8 +9,8 @@ export const About = ({ data }) => {
   return (
     <div className={`${styles.aboutContainer}`}>
       <div className={`${styles.topCopy}`}>
-        <h1>About</h1>
-        <p>About page comming soon.</p>
+        <h1>About Family History Talks</h1>
+        <p>Page coming soon</p>
       </div>
     </div>
   );

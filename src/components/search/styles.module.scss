@@ -1,44 +1,97 @@
-.addResource {
-  margin: 0 auto;
+.search {
+  max-width: 700px;
 
-  label {
-    margin: 20px 0;
-    display: block;
+  form {
+    display: flex;
+    border-bottom: 1px solid var(--color-extra-light-gray);
+    padding-bottom: 30px;
+    margin-bottom: 30px;
   }
 
-  input,
-  textarea {
+  .filter {
+    button {
+      font-size: 14px;
+      line-height: 24px;
+      background-color: var(--color-extra-extra-light-gray);
+      border: 1px solid var(--color-black);
+      border-radius: var(--border-radius);
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px 0 0;
+      transition: background-color var(--transition);
+      @include hover {
+        background-color: var(--color-extra-light-gray);
+      }
+    }
+  }
+
+  input {
+    height: 40px;
+    max-width: 300px;
     background-color: var(--color-white);
     border: 0;
     border-radius: var(--border-radius);
     color: var(--color-black);
     font-family: var(--font-roboto);
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 14px;
+    line-height: 24px;
     font-weight: 400;
-    padding: 10px;
+    padding: 7px;
     width: calc(100% - 20px);
     border: 1px solid var(--color-black);
-    margin-top: 5px;
+    margin: 0 10px 0 0;
 
-    &:focus {
-      outline: 2px solid var(--color-kelly-green);
+    &:focus-visible {
+      outline: 2px solid var(--color-blue);
+      background-color: var(--color-white);
     }
   }
 
-  textarea {
-    height: 200px;
-  }
-
   input[type='submit'] {
-    background-color: var(--color-green);
+    background-color: var(--color-blue);
     color: var(--color-white);
     border: none;
     outline: none;
-    transition: background-color var(--transition);
+    transition: opacity var(--transition);
     cursor: pointer;
+    opacity: 0.9;
+    max-width: 80px;
     @include hover {
-      background-color: var(--color-kelly-green);
+      opacity: 1;
+    }
+  }
+}
+
+.results {
+  width: calc(100% - 2px);
+  margin-left: 1px;
+}
+
+.resultItem {
+  text-decoration: none;
+  background-color: var(--color-extra-extra-light-gray);
+  border: 1px solid var(--color-extra-light-gray);
+  margin: 20px 0;
+  padding: 10px 20px;
+  display: block;
+  position: relative;
+  &:before {
+    content: '';
+    opacity: 0;
+    transition: opacity var(--transition), border var(--transition);
+    height: calc(100% + 2px);
+    width: 8px;
+    background-color: var(--color-blue);
+    position: absolute;
+    top: -1px;
+    left: 0px;
+  }
+  @include hover {
+    border: 1px solid var(--color-blue);
+    &:before {
+      opacity: 1;
     }
   }
 }
