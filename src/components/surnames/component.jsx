@@ -10,12 +10,8 @@ export const Surnames = ({ data }) => {
     <div className={`${styles.surnamesContainer}`}>
       <h1>Surnames</h1>
       <p>
-        Below is the complete list of all biography articles hosted on Family
-        History Talks, organized by surname. We&#39;re always looking to improve
-        and expand our articles and resources. If you have any questions,
-        concerns, or have any additional information you would like to share,
-        please feel free to contact us at{' '}
-        <a href="familyhistorytalks@gmail.com">familyhistorytalks@gmail.com</a>.
+        Below is the complete list of all biographical articles hosted on Family
+        History Talks, grouped by surname.
       </p>
       <div className={`${styles.surnames}`}>
         <ul>

@@ -99,6 +99,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   });
 
   createPage({
+    path: '/',
+    component: pageTemplate,
+    context: {
+      slug: '/',
+      type: 'about',
+    },
+  });
+
+  createPage({
     path: '/surnames',
     component: pageTemplate,
     context: {

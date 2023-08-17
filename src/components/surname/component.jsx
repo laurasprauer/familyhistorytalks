@@ -18,6 +18,7 @@ export const Surname = ({ data }) => {
       <h1>{surname.surname}</h1>
       {surname.body ? (
         <div
+          className={`${styles.surnameBody}`}
           dangerouslySetInnerHTML={{
             __html: surname.body.childMarkdownRemark.html,
           }}
@@ -27,7 +28,6 @@ export const Surname = ({ data }) => {
         <ul>
           {people
             ? people.map((person, index) => {
-                console.log(person);
                 return (
                   <li key={index}>
                     <Link to={`/person/${person.node.slug}`}>

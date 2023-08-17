@@ -17,6 +17,7 @@ class SurnameTemplate extends React.Component {
 export const pageQuery = graphql`
   query Surname($slug: String!) {
     allContentfulPerson(
+      sort: { fields: name }
       filter: { isLive: { eq: true }, surname: { slug: { eq: $slug } } }
     ) {
       edges {

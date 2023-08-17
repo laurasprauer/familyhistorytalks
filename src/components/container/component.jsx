@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Home from '@components/home';
+import About from '@components/about';
 import Person from '@components/person';
 import Search from '@components/search';
 import Surnames from '@components/surnames';
@@ -14,12 +16,22 @@ import * as styles from './styles.module.scss';
 
 export const Container = ({ type, slug, data }) => {
   let title = 'Family History Talks';
-  let description = 'A Genealogy Project';
+  let description = 'A Genealogy Website';
   let image = '';
 
   if (data && type === '404') {
     title = 'Oh Snap - 404 Page';
     description = "Looks like this page doesn't exist.";
+  }
+
+  if (data && type === 'home') {
+    title = 'Family History Talks - Home Page';
+    description = 'Welcome to Family History Talks - A Genealogy Website';
+  }
+
+  if (data && type === 'about') {
+    title = 'Family History Talks - About Page';
+    description = 'Welcome to Family History Talks - A Genealogy Website';
   }
 
   if (data && type === 'search') {
@@ -81,12 +93,8 @@ export const Container = ({ type, slug, data }) => {
 
       <div className={`${styles.container}`}>
         <div className={styles.wrapper}>
-          {type === 'home' && (
-            <div>
-              <h1>Hello!</h1>
-            </div>
-          )}
-
+          {type === 'home' && <Home />}
+          {type === 'about' && <About />}
           {type === 'person' && <Person data={data} />}
           {type === 'search' && <Search />}
           {type === 'surnames' && <Surnames data={data} />}
