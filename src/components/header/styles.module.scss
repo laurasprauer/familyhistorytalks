@@ -1,24 +1,24 @@
 .header {
-  height: 80px;
   width: 100%;
   padding: 20px 40px;
   border-bottom: 1px solid var(--color-extra-light-gray);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   @include media($small-lowest, down) {
-    display: block;
-    height: auto;
-    padding: 20px 25px;
+    padding: 20px 0;
   }
 
   .logo {
+    display: block;
+
     @include media($small-lowest, down) {
-      padding-right: calc(100% - 217px);
+      margin-left: 25px;
     }
     svg {
-      height: 40px;
+      width: 206px;
       position: relative;
       top: 4px;
     }
@@ -30,9 +30,10 @@
     position: relative;
     display: none;
     top: -5px;
+    margin-right: 25px;
 
     @include media($small-lowest, down) {
-      display: inline-block;
+      display: block;
     }
 
     span {
@@ -83,8 +84,7 @@
     overflow: hidden;
 
     @include media($small-lowest, down) {
-      width: calc(100% + 50px);
-      margin-left: -25px;
+      width: 100%;
       margin-bottom: -20px;
       margin-top: 20px;
       max-height: 0px;

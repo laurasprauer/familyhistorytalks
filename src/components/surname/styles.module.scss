@@ -93,7 +93,7 @@
 }
 
 .people {
-  width: calc(100% - 20px);
+  width: calc(100% + 20px);
   margin-left: -10px;
   margin-top: 60px;
 
@@ -108,6 +108,7 @@
   }
 
   a {
+    overflow: hidden;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -116,13 +117,21 @@
     transition: color var(--transition), background-color var(--transition),
       border var(--transition);
 
-    span {
+    .personBirth {
       display: block;
       font-size: 12px;
       line-height: 22px;
       color: var(--color-light-gray);
       position: relative;
-      top: -5px;
+      top: -2px;
+      text-wrap: nowrap;
+    }
+
+    .personName {
+      display: block;
+      font-size: 14px;
+      line-height: 16px;
+      text-wrap: nowrap;
     }
 
     @include hover {
@@ -146,16 +155,16 @@
       margin: 10px;
       width: 25%;
 
-      @include media($medium-lowest, down) {
-        width: calc(1 / 3 * 100%);
+      @include media($medium, down) {
+        width: calc(1 / 3 * 100% - 20px);
       }
 
-      @include media($small-lowest, down) {
-        width: 50%;
+      @include media($small, down) {
+        width: calc(50% - 20px);
       }
 
       @include media($x-small-highest, down) {
-        width: 100%;
+        width: calc(100% - 20px);
       }
     }
   }

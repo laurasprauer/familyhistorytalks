@@ -40,8 +40,10 @@ export const Surname = ({ data }) => {
                         <SVG name="profile" />
                       )}
                       <div>
-                        {person.node.name}{' '}
-                        <span>
+                        <span className={`${styles.personName}`}>
+                          {person.node.name}{' '}
+                        </span>
+                        <span className={`${styles.personBirth}`}>
                           ({person.node.birthYear} - {person.node.deathYear})
                         </span>
                       </div>

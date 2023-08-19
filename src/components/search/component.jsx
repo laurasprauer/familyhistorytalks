@@ -35,7 +35,7 @@ export const Search = () => {
       })
       .catch((error) => {
         setLoading(false);
-        setError('something went wrong and your form was not submitted');
+        setError('Oops! Something went wrong and your form was not submitted.');
       });
   };
   return (
@@ -50,6 +50,7 @@ export const Search = () => {
 
         <input type="submit" value="Search" disabled={loading} />
       </form>
+      {error ? <div className={`${styles.error}`}>{error}</div> : null}
       {results ? (
         <div className={`${styles.results}`}>
           {results && results.length
