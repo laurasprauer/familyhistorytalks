@@ -8,6 +8,11 @@
   publish = "out"
   functions = "netlify/functions"
 
+# These values are public config (site URL, dataset name, bucket name), not secrets —
+# they appear in the repo, so stop Netlify's secrets scan failing the build on them.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SITE_URL,NEXT_PUBLIC_SANITY_DATASET,R2_BUCKET"
+
 [functions]
   node_bundler = "esbuild"
 
