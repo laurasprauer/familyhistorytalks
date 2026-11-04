@@ -53,15 +53,21 @@ npm run lint
 | `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY` | ✓ | ✓ | R2 → Manage API tokens → **Object Read & Write** on the bucket |
 | `R2_BUCKET` | ✓ | ✓ | `familyhistorytalks-resources` |
 | `CLOUDFLARE_API_TOKEN` | optional | – | Only to redeploy the Worker (`cd cloudflare/worker && npx wrangler deploy`) |
-| `SANITY_API_WRITE_TOKEN` | optional | – | Editor token, only for `scripts/migrate-from-contentful` |
+| `SANITY_API_WRITE_TOKEN` | optional | – | Editor token, for scripted content edits (and `scripts/migrate-from-contentful`) |
 
 ## Netlify setup (one time)
 
-1. **Add new site → Import from Git** → this repo. Build settings come from `netlify.toml`.
-2. Add the env vars from the **Netlify** column above, then deploy.
-3. **Domains:** add `familyhistorytalks.com`. (The old `resources.familyhistorytalks.com` subdomain is retired — its `resources` CNAME in Namecheap can be deleted once AWS is shut down.)
+Already done for familyhistorytalks.com — kept here in case the site is ever re-created.
+
+1. **Add new site → Import from Git** → this repo. Build command, publish folder (`out`) and functions folder all come from `netlify.toml`; leave the UI fields as they are.
+2. Add the env vars from the **Netlify** column above, then deploy. Only the ones in that column — the Cloudflare API token and the Sanity write token stay local.
+3. **Domains:** `familyhistorytalks.com` (DNS at Namecheap). The old `resources.familyhistorytalks.com` subdomain is retired.
 4. **Auto-rebuild on publish:** Netlify → Site configuration → Build & deploy → **Build hooks** → add "Sanity publish", copy the URL. sanity.io/manage → API → **Webhooks** → add it (dataset `production`, trigger on create/update/delete).
-5. **Studio Deploy tab:** open the Studio → **Deploy** → add the site (site name, Netlify Site ID, the build hook URL, a Netlify personal access token).
+5. **Studio Deploy tab:** open the Studio → **Deploy** → add the site (title, Netlify Site ID, site name, the build hook URL, a Netlify personal access token).
+
+Build gotchas:
+- Netlify's **secrets scan** fails the build if a "secret" env var's value appears in the repo. The site URL, dataset and bucket name are public config, so `netlify.toml` lists them in `SECRETS_SCAN_OMIT_KEYS` — don't mark them secret-only to work around it, and don't add real secrets there.
+- If a build fails in an `@netlify/plugin-gatsby` step, the old Gatsby plugin has come back on the site: set `NETLIFY_SKIP_GATSBY_BUILD_PLUGIN=true`.
 
 ## How it fits together
 
@@ -74,4 +80,9 @@ Visitor ─▶ /resources/<id>/<file>.pdf ─Netlify rewrite─▶ Cloudflare Wo
 ```
 
 - The upload function only signs uploads for logged-in editors of the Sanity project (it checks the editor's Studio token with Sanity).
+- Uploads keep the `<id>/<file>.pdf` layout: a new Asset gets a new id folder (`Date.now()`), replacing the PDF reuses the Asset's folder. Only the PDF is stored — the metadata lives in Sanity.
 - Removing or replacing a PDF in the Studio doesn't delete the old file from R2 — clean up in the Cloudflare dashboard if needed.
+
+## History
+
+Until November 2026 the site was Gatsby + Contentful, with PDFs and per-document `data.json` files in AWS S3/CloudFront and a (broken) search API on AWS. Everything moved to Sanity + R2 (see `scripts/migrate-from-contentful/`), the `data.json` files were deleted, and all AWS resources were shut down. Contentful is no longer used.

@@ -38,6 +38,14 @@ All generated files are git-ignored. `filesUrl.cjs` decides PDF URLs: `/resource
 
 Styles keep the original site's look: colors in `styles/variables/_color.scss` (use `var(--color-*)` / `color-alpha()`, never hex in components), Roboto + Roboto Slab via `next/font` in `_app.js`, `rich-text` mixin in `mixins/_typography.scss`. Pixel values were kept from the original design.
 
-## Migration (done)
+## Content edits
 
-`scripts/migrate-from-contentful/` converted Contentful + the old S3 `data.json` files to Sanity (deterministic ids `asset-<sid>`, `person-<contentfulId>`…). Kept for reference; re-running `import` with `--replace` would overwrite edits made in Sanity since.
+Bios, surnames and asset text live in **Sanity**, not in the repo. To change content, edit it in the Studio or patch the published document with `@sanity/client` using `SANITY_API_WRITE_TOKEN` from `.env` (e.g. `body[_key=="…"].children[_key=="…"].text`); check there's no `drafts.` copy first. Publishing triggers a Netlify rebuild via the Sanity webhook; a push to `main` also rebuilds.
+
+## Netlify
+
+`netlify.toml` is the source of truth for build settings. `SECRETS_SCAN_OMIT_KEYS` there covers public config values that appear in the repo (site URL, dataset, bucket) — add a key there only if it's genuinely not secret. Netlify's Next.js runtime plugin is auto-enabled; harmless with static export.
+
+## Migration (done, Nov 2026)
+
+`scripts/migrate-from-contentful/` converted Contentful + the old S3 `data.json` files to Sanity (deterministic ids `asset-<sid>`, `person-<contentfulId>`…). Kept for reference only: the `data.json` files are deleted and the AWS account (S3, CloudFront, Lambda) is shut down, so `export` can't re-run, and re-running `import` with `--replace` would overwrite edits made in Sanity since.

@@ -10,6 +10,8 @@ SANITY_AUTH_TOKEN=<editor token> npm run import   # sanity dataset import --repl
 npm run verify     # counts, references, citations, PDFs in R2, images
 ```
 
+⚠️ The `<sid>/data.json` files were deleted from R2 after the migration, so `export` can't be re-run.
+
 ⚠️ `import` uses `--replace`: re-running it overwrites any edits made in the Studio since to the same documents. Only re-run it before going live.
 
 Conversion notes:
