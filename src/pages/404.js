@@ -1,10 +1,10 @@
-import React from 'react';
-import Container from '@components/container';
+import Layout from "@components/layout/component.js";
+import NotFound from "@components/notFound/component.js";
 
-class FlexibleTemplate extends React.Component {
-  render() {
-    return <Container slug={'/404'} type={'404'} />;
-  }
+export default function Custom404() {
+  return (
+    <Layout title="Page Not Found" path="404" noindex>
+      <NotFound />
+    </Layout>
+  );
 }
-
-export default FlexibleTemplate;

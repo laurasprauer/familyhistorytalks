@@ -1,0 +1,17 @@
+{
+  "name": "migrate-from-contentful",
+  "private": true,
+  "type": "module",
+  "description": "One-off: Contentful + S3 data.json → Sanity NDJSON. See README.md.",
+  "scripts": {
+    "export": "node --env-file=../../.env export.mjs",
+    "transform": "node --env-file=../../.env transform.mjs",
+    "import": "cd ../../studio && npx sanity dataset import ../scripts/migrate-from-contentful/data/migration.ndjson --dataset production --replace",
+    "verify": "node --env-file=../../.env verify.mjs"
+  },
+  "dependencies": {
+    "@sanity/client": "^7.15.0",
+    "htmlparser2": "^10.0.0",
+    "marked": "^15.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+# Read-only file server for the archive PDFs in R2.
+# Deploy: cd cloudflare/worker && npx wrangler deploy
+# URL:    https://familyhistorytalks-files.familyhistorytalks.workers.dev
+name = "familyhistorytalks-files"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+workers_dev = true
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "familyhistorytalks-resources"

@@ -1,0 +1,32 @@
+.notFound {
+  h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin-bottom: 20px;
+  }
+
+  h1,
+  p,
+  a {
+    text-align: center;
+    color: var(--color-white);
+  }
+
+  a {
+    @include hover {
+      color: var(--color-extra-light-gray);
+    }
+  }
+
+  p {
+    margin: 20px auto 0 auto;
+    max-width: 800px;
+  }
+
+  > div {
+    background-color: var(--color-black);
+    padding: 60px 40px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,8 @@
+// Emitted as CSS custom properties on :root (see global-styles.scss).
+// --font-roboto-base / --font-roboto-slab-base are set in src/pages/_app.js by next/font.
+$misc: (
+  "--font-roboto": (var(--font-roboto-base), "Roboto", system-ui, sans-serif),
+  "--font-roboto-slab": (var(--font-roboto-slab-base), "Roboto Slab", Georgia, serif),
+  "--transition": 0.3s,
+  "--border-radius": 8px,
+);

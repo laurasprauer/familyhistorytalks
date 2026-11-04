@@ -1,0 +1,58 @@
+# Netlify builds on every push to main (GitHub) and when Sanity content is
+# published (webhook → build hook). See scripts/netlify-build.sh and README.md.
+# Env-dependent redirects (Sanity image proxy, /resources → Cloudflare Worker) are
+# written to public/_redirects by src/app/utils/generateNetlifyFiles.cjs.
+
+[build]
+  command = "bash scripts/netlify-build.sh"
+  publish = "out"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Next.js hashed static assets — safe to cache forever
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Sanity image/file proxy — cache for 1 week
+[[headers]]
+  for = "/sanity-images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/sanity-files/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+# Search index changes with every content publish
+[[headers]]
+  for = "/search-index.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# HTML pages — always revalidate so deploys propagate immediately
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Studio "Upload PDF" field → signed R2 upload URL
+[[redirects]]
+  from = "/api/r2-upload-url"
+  to = "/.netlify/functions/r2-upload-url"
+  status = 200
+
+# The old upload page is gone — uploads happen in Sanity Studio now
+[[redirects]]
+  from = "/add-resource"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
